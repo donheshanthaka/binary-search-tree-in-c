@@ -91,6 +91,14 @@ int max(int left, int right){
     }
 }
 
+// Pre-order traversal of tree using recursion
+void preOrder(struct bstNode *root){
+    if(root == NULL) return;
+    printf("%d ", root->data);
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
 int main()
 {
     struct BstNode *root = NULL;  // Creating an empty tree
@@ -116,6 +124,10 @@ int main()
 	printf("The max value: %d\n", findMax(root));
 
 	printf("The height of the tree: %d\n", height(root));
+
+	printf("\npre-order: ");
+	preOrder(root);
+	printf("\n");
 
     return 0;
 }
