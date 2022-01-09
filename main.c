@@ -10,7 +10,7 @@ struct bstNode{
 
 // function creates a new node in the heap
 struct bstNode *getNewNode(int data){
-    struct bstNode *newNode = malloc(sizeof(struct bstNode));
+    struct bstNode *newNode = (struct bstNode*)malloc(sizeof(struct bstNode));
     newNode->data = data;
     newNode->left = NULL;
     newNode->right = NULL;
@@ -22,7 +22,7 @@ struct bstNode *insert(struct bstNode *root, int data){
     if(root == NULL){ // if the tree is empty
         root = getNewNode(data);
 
-    }else if( data <= root->data){ // if the data is less than the data in the current node, insert to the left subtree
+    }else if( data < root->data){ // if the data is less than the data in the current node, insert to the left subtree
         root->left = insert(root->left, data);
 
     }else{ // if the data is greater than the data in the current node, insert to the right subtree
@@ -99,18 +99,35 @@ void preOrder(struct bstNode *root){
     preOrder(root->right);
 }
 
+// In-order traversal of tree using recursion
+void inOrder(struct bstNode *root){
+    if(root == NULL) return;
+    inOrder(root->left);
+    printf("%d ", root->data);
+    inOrder(root->right);
+}
+
+// Post-order traversal of tree using recursion
+void postOrder(struct bstNode *root){
+    if(root == NULL) return;
+    postOrder(root->left);
+    postOrder(root->right);
+    printf("%d ", root->data);
+}
+
 int main()
 {
     struct BstNode *root = NULL;  // Creating an empty tree
 
     printf("The max value: %d\n", findMax(root));
 
-	root = insert(root,15);
+	root = insert(root,27);
+	root = insert(root,14);
+	root = insert(root,35);
 	root = insert(root,10);
-	root = insert(root,20);
-	root = insert(root,25);
-	root = insert(root,8);
-	root = insert(root,12);
+	root = insert(root,19);
+	root = insert(root,31);
+	root = insert(root,42 );
 
 	int number = 20;
 	if(search(root,number) == true){
@@ -125,9 +142,20 @@ int main()
 
 	printf("The height of the tree: %d\n", height(root));
 
-	printf("\npre-order: ");
+
+
+	printf("\nPre-order: ");
 	preOrder(root);
 	printf("\n");
+
+    printf("\nIn-order: ");
+	inOrder(root);
+	printf("\n");
+
+    printf("\nPost-order: ");
+	postOrder(root);
+	printf("\n");
+
 
     return 0;
 }

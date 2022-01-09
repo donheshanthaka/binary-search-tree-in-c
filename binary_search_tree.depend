@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1641743657 source:d:\projects\c\binary_search_tree\main.c
+1641752694 source:d:\projects\c\binary_search_tree\main.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
