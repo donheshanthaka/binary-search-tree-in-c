@@ -73,9 +73,26 @@ int findMax(struct bstNode *root){
     return findMax(root->right);
 }
 
+
+// A recursive implementation to find the height of the tree
+int height(struct bstNode *root){
+    if(root == NULL){
+        return -1;
+    }
+    return max(height(root->left), height(root->right)) + 1;
+}
+
+// function to find the max value of two int
+int max(int left, int right){
+    if (left > right){
+        return left;
+    }else{
+        return right;
+    }
+}
+
 int main()
 {
-
     struct BstNode *root = NULL;  // Creating an empty tree
 
     printf("The max value: %d\n", findMax(root));
@@ -97,6 +114,8 @@ int main()
 
 	printf("The min value: %d\n", findMin(root));
 	printf("The max value: %d\n", findMax(root));
+
+	printf("The height of the tree: %d\n", height(root));
 
     return 0;
 }
