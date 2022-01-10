@@ -115,6 +115,41 @@ void postOrder(struct bstNode *root){
     printf("%d ", root->data);
 }
 
+// Function deletes a node given its data value as input
+struct bstNode *deleteNode(struct bstNode *root, int data){
+    if (root == NULL) return root;
+    else if (data < root->data){
+        root->left = deleteNode(root->left, data);
+    }
+    else if (data > root->data){
+        root->right = deleteNode(root->right, data);
+    }
+    else{ // when data == the root->data
+
+        // case 1: No child
+        if (root->left == NULL && root->right == NULL){
+            free(root);
+            root = NULL;
+            return root;
+        }
+        // case 2: One child
+        else if (root->left == NULL){
+            struct bstNode *temp = root;
+            root = root->right;
+            free(temp);
+            temp = NULL;
+            return root;
+        }
+        // case 3: 2 Children
+        else{
+            struct bstNode *temp = findMin(root->right);
+            root->data = temp->data;
+            root->right = deleteNode(root->right, temp->data);
+        }
+    }
+    return root;
+};
+
 int main()
 {
     struct BstNode *root = NULL;  // Creating an empty tree
@@ -156,6 +191,11 @@ int main()
 	postOrder(root);
 	printf("\n");
 
+	deleteNode(root, 31);
+
+    printf("\nIn-order: ");
+	inOrder(root);
+	printf("\n");
 
     return 0;
 }
